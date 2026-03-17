@@ -132,6 +132,7 @@
             letter-spacing: 0.5px;
             padding: 8px 10px;
             border-radius: 4px;
+            white-space: nowrap;
         }
         
         .main-menu > ul > li:hover > a {
@@ -143,9 +144,9 @@
             font-size: 10px;
             margin-left: 2px;
         }
-        
-        .main-menu a i.fa-lock {
-            margin-right: 3px;
+
+        .main-menu a .fa-lock {
+            margin-left: 4px;
         }
 
         /* ================= DROPDOWN MENU (FINAL CLEAN) ================= */
@@ -216,16 +217,19 @@
         position: static;
         box-shadow: none;
         border-top: none;
+        padding-left: 15px;
 
-        display: none;
-
+        /* Make sure it's strictly hidden by default */
+        display: none !important;
+        
         opacity: 1;
         visibility: visible;
         transform: none;
+        transition: none; /* disable transition on mobile to allow instant hide/show */
     }
 
     .main-menu > ul > li.open .dropdown-menu {
-        display: flex;
+        display: flex !important;
     }
 }
         .menu-toggle {
@@ -610,28 +614,46 @@
             border-top: 1px solid #333;
             padding-top: 20px;
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: flex-start;
+            justify-content: space-between; /* Space out copyright and button */
+            align-items: center; /* Vertically align them */
+            flex-wrap: wrap; /* Allow wrapping on very small screens before breakpoint */
+            gap: 15px;
         }
         
+        .footer-bottom-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
         .footer-bottom img {
-            height: 60px;
-            margin-bottom: 10px;
+            height: auto;
+            max-height: 60px;
+            max-width: 100%;
+            object-fit: contain;
+            margin-bottom: 5px;
         }
 
         .copyright-text {
             font-size: 12px;
             line-height: 1.5;
+            color: #ccc;
         }
 
         .contact-us-btn {
             background: none;
             border: none;
             color: white;
+            padding: 0;
             cursor: pointer;
-            align-self: flex-end;
-            margin-top: -20px;
+            font-weight: 600;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+        
+        .contact-us-btn:hover {
+            text-decoration: underline;
         }
 
         /* RESPONSIVE */
@@ -639,13 +661,13 @@
             header {
                 flex-direction: column;
                 align-items: flex-start;
-                padding-bottom: 70px;
+                padding-bottom: 20px; /* Removed extra padding previously used for the menu toggle at the bottom */
             }
             .header-right {
                 width: 100%;
                 display: none;
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: column; /* Search bar on top, Menu below */
+                align-items: stretch; /* Full width for children */
                 margin-top: 20px;
                 gap: 15px;
                 padding-top: 20px;
@@ -659,13 +681,14 @@
             }
             .search-container input {
                 width: 100%;
-                max-width: 300px;
+                max-width: 100%; /* Make search input full width on mobile */
+                padding: 12px 40px 12px 15px; /* Better padding for mobile */
             }
             .main-menu ul {
                 flex-direction: column;
-                gap: 5px;
+                gap: 8px;
                 width: 100%;
-                align-items: flex-start;
+                align-items: stretch;
             }
             .main-menu > ul > li {
                 width: 100%;
@@ -673,6 +696,10 @@
             .main-menu > ul > li > a {
                 justify-content: space-between;
                 width: 100%;
+                padding: 12px 15px;
+                background-color: #f5f5f5; /* Light background for full width touch area */
+                border-bottom: 1px solid #eaeaea;
+                border-radius: 4px;
             }
             .dropdown-menu {
                 position: static;
@@ -689,20 +716,35 @@
                 display: flex;
                 position: absolute;
                 right: 5%;
-                bottom: 25px;
+                top: 70px; /* Positioned below the logo on the right side */
+                background-color: #5ab1ad; /* Match the teal color from the image */
+                border-radius: 4px;
+                padding: 5px 10px;
+                height: 35px;
+                width: 40px;
             }
             .logo-container {
                 align-items: center;
+                width: 100%; /* Ensure it centers */
+                justify-content: center;
+                display: flex;
+                margin-bottom: 20px;
+            }
+            .logo-container img {
+                height: 50px; /* Adjust logo height based on image */
             }
             .logo-text { font-size: 38px; }
             .logo-icons { align-self: center; }
         }
         @media (max-width: 768px) {
             .hero-title { font-size: 32px; }
-            .cert-top-info { flex-direction: column; gap: 20px; align-items: center; text-align: center; }
+            .cert-top-info { flex-direction: row; justify-content: space-between; align-items: flex-start; text-align: left; }
+            .patient-detail { font-size: 11px; } /* Slightly smaller font on mobile */
+            .patient-name { font-size: 13px; }
+            .qr-code { width: 80px; height: 80px; } /* scale QR down slightly on mobile to fit */
             .vaccine-grid { display: block; overflow-x: auto; white-space: nowrap; }
-            .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
-            .contact-us-btn { align-self: center; margin-top: 10px; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; text-align: left; }
+            .contact-us-btn { align-self: flex-end; margin-top: 10px; }
         }
     </style>
 </head>
@@ -724,49 +766,49 @@
                     <li class="has-dropdown">
                         <a href="#" onclick="toggleDropdown(event)">PELAYANAN <i class="fa-solid fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Registrasi Vaksinasi Internasional</a></li>
-                            <li><a href="#">Layanan Kapal</a></li>
-                            <li><a href="#">Deklarasi Pos Lintas Batas Negara</a></li>
-                            <li><a href="#">Layanan Izin Sakit dan Laik Terbang</a></li>
-                            <li><a href="#">Cek Nomor Dokumen</a></li>
+                            <li><a href="about:blank" target="_blank">Registrasi Vaksinasi Internasional</a></li>
+                            <li><a href="about:blank" target="_blank">Layanan Kapal</a></li>
+                            <li><a href="about:blank" target="_blank">Deklarasi Pos Lintas Batas Negara</a></li>
+                            <li><a href="about:blank" target="_blank">Layanan Izin Sakit dan Laik Terbang</a></li>
+                            <li><a href="about:blank" target="_blank">Cek Nomer Dokumen</a></li>
                         </ul>
                     </li>
                     <li class="has-dropdown">
                         <a href="#" onclick="toggleDropdown(event)">IHR <i class="fa-solid fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Berita</a></li>
-                            <li><a href="#">Referensi</a></li>
+                            <li><a href="about:blank" target="_blank">Berita</a></li>
+                            <li><a href="about:blank" target="_blank">Referensi</a></li>
                         </ul>
                     </li>
                     <li class="has-dropdown">
                         <a href="#" onclick="toggleDropdown(event)">BERITA <i class="fa-solid fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Berita Nasional</a></li>
-                            <li><a href="#">Berita Dunia</a></li>
-                            <li><a href="#">Berita Seputar Balai Karkes</a></li>
-                            <li><a href="#">Pengumuman</a></li>
-                            <li><a href="#">Kegiatan</a></li>
+                            <li><a href="about:blank" target="_blank">Berita Nasional</a></li>
+                            <li><a href="about:blank" target="_blank">Berita Dunia</a></li>
+                            <li><a href="about:blank" target="_blank">Berita Seputar Balai Karkes</a></li>
+                            <li><a href="about:blank" target="_blank">Pengumuman</a></li>
+                            <li><a href="about:blank" target="_blank">Kegiatan</a></li>
                         </ul>
                     </li>
                     <li class="has-dropdown">
                         <a href="#" onclick="toggleDropdown(event)">PERATURAN <i class="fa-solid fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Regulasi Presiden</a></li>
-                            <li><a href="#">Peraturan Pemerintah</a></li>
-                            <li><a href="#">Regulasi Menteri Kesehatan</a></li>
-                            <li><a href="#">Regulasi Menteri Lainnya</a></li>
-                            <li><a href="#">Regulasi Dirjen P2P</a></li>
-                            <li><a href="#">Regulasi Dirjen Kemkes Lainnya</a></li>
-                            <li><a href="#">Regulasi Dirjen Lainnya</a></li>
-                            <li><a href="#">UU & Peraturan Lainnya</a></li>
-                            <li><a href="#">Referensi & Peraturan</a></li>
-                            <li><a href="#">International Health Regulations</a></li>
+                            <li><a href="about:blank" target="_blank">Regulasi Presiden</a></li>
+                            <li><a href="about:blank" target="_blank">Peraturan Pemerintah</a></li>
+                            <li><a href="about:blank" target="_blank">Regulasi Menteri Kesehatan</a></li>
+                            <li><a href="about:blank" target="_blank">Regulasi Menteri Lainnya</a></li>
+                            <li><a href="about:blank" target="_blank">Regulasi Dirjen P2P</a></li>
+                            <li><a href="about:blank" target="_blank">Regulasi Dirjen Kemkes Lainnya</a></li>
+                            <li><a href="about:blank" target="_blank">Regulasi Dirjen Lainnya</a></li>
+                            <li><a href="about:blank" target="_blank">UU & Peraturan Lainnya</a></li>
+                            <li><a href="about:blank" target="_blank">Referensi & Peraturan</a></li>
+                            <li><a href="about:blank" target="_blank">International Health Regulations</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">PROFIL BALAI KARKES</a></li>
-                    <li><a href="#">VISI MISI</a></li>
-                    <li><a href="#">FASKES</a></li>
-                    <li><a href="#"><i class="fa-solid fa-lock"></i> LOGIN</a></li>
+                    <li><a href="about:blank" target="_blank">PROFIL BALAI KARKES</a></li>
+                    <li><a href="about:blank" target="_blank">VISI MISI</a></li>
+                    <li><a href="about:blank" target="_blank">FASKES</a></li>
+                    <li><a href="about:blank" target="_blank">LOGIN <i class="fa-solid fa-lock"></i></a></li>
                 </ul>
             </nav>
         </div>
@@ -999,9 +1041,11 @@
         </div>
 
         <div class="footer-bottom">
-            <img src="logo karantina.png" alt="Logo Karantina Kesehatan" style="height: 80px; margin-bottom: 10px;">
-            <div class="copyright-text">
-                Copyright ©2026 Direktorat Surveilans dan Karantina Kesehatan — Direktorat Jenderal Pencegahan dan Pengendalian Penyakit — Kementerian Kesehatan RI
+            <div class="footer-bottom-left">
+                <img src="logo karantina.png" alt="Logo Karantina Kesehatan">
+                <div class="copyright-text">
+                    Copyright ©2026 Direktorat Surveilans dan Karantina Kesehatan — Direktorat Jenderal Pencegahan dan Pengendalian Penyakit — Kementerian Kesehatan RI
+                </div>
             </div>
             <button class="contact-us-btn">Kontak Kami</button>
         </div>
