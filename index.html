@@ -757,10 +757,10 @@
         </div>
 
         <div class="header-right" id="headerRight">
-            <div class="search-container">
-                <input type="text" placeholder="Search...">
-                <button><i class="fa-solid fa-search"></i></button>
-            </div>
+            <form class="search-container" action="about:blank" target="_blank" method="get">
+                <input type="text" placeholder="Search..." name="q">
+                <button type="submit"><i class="fa-solid fa-search"></i></button>
+            </form>
             <nav class="main-menu">
                 <ul>
                     <li class="has-dropdown">
@@ -864,7 +864,7 @@
                 <label class="form-label">Nomor Dokumen/IMO No/Barcode/No. Porsi</label>
                 <input type="text" class="form-control" id="documentNumber" value="E26-000279362">
             </div>
-            <button class="btn-search" onclick="showCertificate()"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+            <a href="about:blank" target="_blank" class="btn-search" style="text-decoration: none; width: fit-content;"><i class="fa-solid fa-magnifying-glass"></i> Cari</a>
         </div>
 
     </div>
@@ -892,7 +892,7 @@
                 
                 <div class="qr-section">
                     <!-- Base64 of a dummy QR or just using an img placeholder -->
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=E26-000279362" alt="QR Code" class="qr-code">
+                    <img src="barcode.jpg" alt="QR Code" class="qr-code">
                     <div class="qr-text">E26-000279362</div>
                 </div>
             </div>
